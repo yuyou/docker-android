@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  android-container:
+    build:
+      context: .
+    container_name: android-container
+    privileged: true
+    environment:
+      - EMULATOR_DEVICE=Nexus 7
+      - WEB_VNC=true
+      - WEB_LOG=false
+      #- WEB_LOG_PORT=9000
+      - VNC_PASSWORD=1q2w3e4r
+      - ENV_LOG_PATH=/var/log/
+    volumes:
+      - data:/home/androidusr
+      - root:/root
+      #- ./layout:/home/androidusr/docker-android/mixins/configs/devices/skins/nexus_7/layout
+    ports:
+      - "6080:6080"
+      - "5900:5900"
+    devices:
+      - "/dev/kvm:/dev/kvm"
+    restart: always
+
+volumes:
+  data:
+  root:
